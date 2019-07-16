@@ -1,31 +1,30 @@
-var cvs = document.getElementById("cvs");
-var ctx = cvs.getContext("2d");
-// ctx.fillStyle = "#000";
-// ctx.fillRect(0, 0, 100, 100);
 
+var canvas = {
+	size: 10
+};
+
+canvas.cvs = document.getElementById("cvs");
+canvas.ctx = canvas.cvs.getContext("2d");
 
 function colorRandom() {
 	var hex = "0123456789abcdef";
-	var c = "";
+	var newColor = "";
 	for (var i = 6; i > 0; i--) {
-		c += Math.floor(Math.random()*hex.length);
+		newColor += Math.floor(Math.random()*hex.length);
 	}
-	ctx.fillStyle = "#" + c;
-	console.log(ctx.fillStyle, c); 
-
+	return "#" + newColor;
 }
 
+function randomDimension(n) {
+	return Math.floor(Math.random()*Number(n));
+}
 
-function f() {
-	// console.log("hey")
-	var w = cvs.width;
-	var h = cvs.height;
-	var x = Math.floor(Math.random()*Number(w));
-	var y = Math.floor(Math.random()*Number(h));
-	var size = 10;
-	colorRandom();
-	ctx.fillRect(x, y, size, size);
+function main() {
+	var x = randomDimension(canvas.cvs.width)
+	var y = randomDimension(canvas.cvs.height)
+
+	canvas.ctx.fillStyle = colorRandom();
+	canvas.ctx.fillRect(x, y, canvas.size, canvas.size);
 } 
 
-
-var loop = setInterval(f, 100);
+var loop = setInterval(main, 100);
