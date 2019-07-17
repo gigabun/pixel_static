@@ -1,6 +1,6 @@
 
 var canvas = {
-	size: 10
+	pixelSize: 10
 };
 
 canvas.cvs = document.getElementById("cvs");
@@ -15,16 +15,31 @@ function colorRandom() {
 	return "#" + newColor;
 }
 
-function randomDimension(n) {
-	return Math.floor(Math.random()*Number(n));
+function randomDimension(maxNumber, increment=1) {
+	var randomNumber = Math.floor(Math.random() * Number(maxNumber));
+	randomNumber -= randomNumber % increment;
+	return randomNumber;
 }
 
-function main() {
-	var x = randomDimension(canvas.cvs.width)
-	var y = randomDimension(canvas.cvs.height)
+function pixelStatic() {
+	for (var i = 0; i < canvas.cvs.width; i+=canvas.pixelSize) {
+		for (var j = 0; j < canvas.cvs.height; j+=canvas.pixelSize) {
+			drawSquare(i, j);
+		}
+	}
+}
 
-	canvas.ctx.fillStyle = colorRandom();
-	canvas.ctx.fillRect(x, y, canvas.size, canvas.size);
+function randomPixel() {
+	var x = randomDimension(canvas.cvs.width, canvas.pixelSize);
+	var y = randomDimension(canvas.cvs.height, canvas.pixelSize);
+
+	drawSquare(x, y);
 } 
 
-var loop = setInterval(main, 100);
+function drawSquare(x, y) {
+	canvas.ctx.fillStyle = colorRandom();
+	canvas.ctx.fillRect(x, y, canvas.pixelSize, canvas.pixelSize);
+}
+
+var loop = setInterval(pixelStatic, 100);
+
