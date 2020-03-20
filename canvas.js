@@ -6,13 +6,12 @@ var canvas = {
 canvas.cvs = document.getElementById("cvs");
 canvas.ctx = canvas.cvs.getContext("2d");
 
+
 function colorRandom() {
 	var hex = "0123456789abcdef";
-	var newColor = "";
-	for (var i = 6; i > 0; i--) {
-		newColor += Math.floor(Math.random()*hex.length);
-	}
-	return "#" + newColor;
+	var newColor = 	`#${Math.random().toString(16).substring(2, 8)}`
+
+	return newColor;
 }
 
 function randomDimension(maxNumber, increment=1) {
